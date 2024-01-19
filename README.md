@@ -20,4 +20,4 @@ This is beginner friendly tutorial of building a basic functioning FastAPI. In c
 5. Open your browser and go to `http://127.0.0.1:8000/docs` to run and test the API 
 
 ## Reference:
-<iframe width="859" height="480" src="https://www.youtube.com/embed/tLKKmouUams" title="FastAPI Course for Beginners" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[![](https://markdown-videos-api.jorgenkh.no/youtube/tLKKmouUams)](https://youtu.be/tLKKmouUams)
