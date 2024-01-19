@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 
 app = FastAPI()
 
@@ -23,5 +23,7 @@ def index():
 
 
 @app.get("/users/{user_id}")  # adding path parameters
-def get_users(user_id: int):
+def get_users(
+    user_id: int = Path(description="Provide the ID of the user", gt=0, lt=100)
+):  # user id must be greater than zero and less than hundred
     return users[user_id]
