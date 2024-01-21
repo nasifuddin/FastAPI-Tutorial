@@ -46,11 +46,13 @@ def index():
 
 
 # adding path parameters (search by id)
-@app.get("/users/{user_id}")
+@app.get("/users/{id}")
 def get_users(
-    user_id: int = Path(description="Provide the ID of the user", gt=0, lt=100)
+    id: int = Path(description="Provide the ID of the user", gt=0, lt=100)
 ):  # user id must be greater than zero and less than hundred
-    return users[user_id]
+    if id not in users:
+        return {"error": "user not found"}
+    return users[id]
 
 
 # adding query parameters
@@ -109,3 +111,13 @@ def update_user(id: int, update_user: update_user):
         users[id]["email"] = update_user.email
 
     return users[id]
+
+
+# delete an user by using delete method
+@app.delete("/delete-user/{id}")
+def delete_user(id: int):
+    if id not in users:
+        return {"error": "user does not exist"}
+
+    del users[id]
+    return {"message": "user deleted"}
