@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Path
+from typing import Optional
 
 app = FastAPI()
 
@@ -27,3 +28,13 @@ def get_users(
     user_id: int = Path(description="Provide the ID of the user", gt=0, lt=100)
 ):  # user id must be greater than zero and less than hundred
     return users[user_id]
+
+
+@app.get("/users-name/")  # adding query parameters
+def get_users_by_name(
+    name: Optional[str] = None,
+):  # making the query paratmeter optional
+    for user_id in users:
+        if users[user_id]["name"] == name:
+            return users[user_id]
+    return {"user": "Not found"}
