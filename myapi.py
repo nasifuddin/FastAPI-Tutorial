@@ -11,17 +11,31 @@ users = {
 }
 
 
+# class for creating new user
 class create_user(BaseModel):  # creating class for adding new user to the database
     name: str
     age: int
     email: str
 
 
+# class for updating existing user
+class update_user(BaseModel):
+    name: Optional[str] = None
+    age: Optional[int] = None
+    email: Optional[str] = None
+
+
+"""To update user we need to make make every attribute optional
+so that the user has the control of the criteria's that they wanna
+update.
+"""
+
+
 # creating an end point
 """There are four endpoint methods used in an API:
 1. GET - GET AN INFORMATION 
 2. POST - CREATE INFORMATION
-3. PUT - UPDATE
+3. PUT - UPDATE INFORMATION
 4. DELETE - DELETE SOMETHING
 """
 
@@ -76,4 +90,22 @@ def create_new_user(id: int, user: create_user):
         return {"error": "user_id already exists"}
 
     users[id] = user
+    return users[id]
+
+
+# creating put method to update the existing information
+@app.put("/update-user/{id}")
+def update_user(id: int, update_user: update_user):
+    if id not in users:
+        return {"error": "user does not exist"}
+
+    if update_user.name != None:
+        users[id]["name"] = update_user.name
+
+    if update_user.age != None:
+        users[id]["age"] = update_user.age
+
+    if update_user.email != None:
+        users[id]["email"] = update_user.email
+
     return users[id]
